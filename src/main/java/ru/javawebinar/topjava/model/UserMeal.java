@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "date_time", name = "meals_unique_user_datetime_idx")})
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
 @NamedQueries({
-        @NamedQuery(name = UserMeal.DELETE_MEAL, query = "DELETE FROM UserMeal u WHERE u.id=:id AND u.user=:user"),
-        @NamedQuery(name = UserMeal.ALL_SORTED_BY_USER, query = "SELECT u FROM UserMeal u WHERE u.user=:user ORDER BY u.dateTime DESC"),
-        @NamedQuery(name = UserMeal.BETWEEN_DATES, query = "SELECT u FROM UserMeal u WHERE u.dateTime>=:min AND u.dateTime<=:max AND u.user=:user ORDER BY u.dateTime DESC "),
-        @NamedQuery(name = UserMeal.GET_SINGLE, query = "SELECT u FROM UserMeal u WHERE u.id=:id AND u.user=:user")
+        @NamedQuery(name = UserMeal.DELETE_MEAL, query = "DELETE FROM UserMeal u WHERE u.id=:id AND u.user.id=:user_id"),
+        @NamedQuery(name = UserMeal.ALL_SORTED_BY_USER, query = "SELECT u FROM UserMeal u WHERE u.user.id=:user_id ORDER BY u.dateTime DESC"),
+        @NamedQuery(name = UserMeal.BETWEEN_DATES, query = "SELECT u FROM UserMeal u WHERE u.dateTime>=:min AND u.dateTime<=:max AND u.user.id=:user_id ORDER BY u.dateTime DESC"),
+        @NamedQuery(name = UserMeal.GET_SINGLE, query = "SELECT u FROM UserMeal u WHERE u.id=:id AND u.user.id=:user_id")
 })
 public class UserMeal extends BaseEntity implements Serializable {
 
@@ -43,7 +43,7 @@ public class UserMeal extends BaseEntity implements Serializable {
     protected int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", updatable = false, insertable = true)
+    @JoinColumn(name = "user_id", unique = true, updatable = false, insertable = true)
     private User user;
 
     public UserMeal(LocalDateTime dateTime, String description, int calories) {

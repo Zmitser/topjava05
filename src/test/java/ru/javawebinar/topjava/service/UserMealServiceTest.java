@@ -1,11 +1,11 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.TestWatcher;
 import org.junit.rules.Timeout;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.UserMeal;
-import ru.javawebinar.topjava.util.TestLogger;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -35,29 +34,28 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserMealServiceTest {
 
-    public long start;
-    public long finish;
-    public LoggerWrapper log;
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
     @Rule
-    public Timeout timeout = Timeout.millis(300);
+    public Timeout timeout = Timeout.millis(500);
     @Rule
-    public TestLogger logger = new TestLogger();
+    public TestWatcher watcher = new TestWatcher() {
+        public long start;
+        public long finish;
+        public LoggerWrapper log;
+        @Override
+        protected void starting(Description description) {
+            start = new Date().getTime();
+            log = LoggerWrapper.get(UserMealServiceTest.class);
+        }
 
-
-    @Before
-    public void beforeTest() {
-        start = new Date().getTime();
-        log = logger.getLogger();
-    }
-
-
-    @After
-    public void afterTest() {
-        finish = new Date().getTime();
-        log.info(String.valueOf(finish - start));
-    }
+        @Override
+        protected void finished(Description description) {
+            finish = new Date().getTime();
+            log.info(String.valueOf(finish - start) + " ms");
+        }
+    };
 
     @Autowired
     protected UserMealService service;
@@ -66,24 +64,19 @@ public class UserMealServiceTest {
     public void testDelete() throws Exception {
         service.delete(MealTestData.MEAL1_ID, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
-        finish = new Date().getTime();
-
 
     }
-
     @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() throws Exception {
         service.delete(MEAL1_ID, 1);
         exception.expect(NotFoundException.class);
     }
-
     @Test
     public void testSave() throws Exception {
         UserMeal created = getCreated();
         service.save(created, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
-
     @Test
     public void testGet() throws Exception {
         UserMeal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
@@ -95,27 +88,22 @@ public class UserMealServiceTest {
         service.get(MEAL1_ID, ADMIN_ID);
         exception.expect(NotFoundException.class);
     }
-
     @Test
     public void testUpdate() throws Exception {
         UserMeal updated = getUpdated();
         service.update(updated, USER_ID);
         MATCHER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));
-
     }
-
     @Test(expected = NotFoundException.class)
     public void testNotFoundUpdate() throws Exception {
         UserMeal item = service.get(MEAL1_ID, USER_ID);
         service.update(item, ADMIN_ID);
         exception.expect(NotFoundException.class);
     }
-
     @Test
     public void testGetAll() throws Exception {
         MATCHER.assertCollectionEquals(USER_MEALS, service.getAll(USER_ID));
     }
-
     @Test
     public void testGetBetween() throws Exception {
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),

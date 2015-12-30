@@ -32,12 +32,12 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
         if (userMeal.isNew()) {
             entityManager.persist(userMeal);
             return userMeal;
+        } else if (get(userMeal.getId(), userId) != null) {
+            return entityManager.merge(userMeal);
         } else {
-            UserMeal userMeal1 = get(userMeal.getId(), userId);
-            if (userMeal1 != null)
-                return entityManager.merge(userMeal);
+            return null;
         }
-        return null;
+
     }
 
     @Override

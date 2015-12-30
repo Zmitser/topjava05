@@ -42,13 +42,12 @@ public class UserMealServiceTest {
     public TestWatcher watcher = new TestWatcher() {
         public long start;
         public long finish;
-        public LoggerWrapper log;
+        public LoggerWrapper log = LoggerWrapper.get(UserMealServiceTest.class);
+
         @Override
         protected void starting(Description description) {
             start = new Date().getTime();
-            log = LoggerWrapper.get(UserMealServiceTest.class);
         }
-
         @Override
         protected void finished(Description description) {
             finish = new Date().getTime();
@@ -65,17 +64,20 @@ public class UserMealServiceTest {
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
 
     }
+
     @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() throws Exception {
         service.delete(MEAL1_ID, 1);
         exception.expect(NotFoundException.class);
     }
+
     @Test
     public void testSave() throws Exception {
         UserMeal created = getCreated();
         service.save(created, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
+
     @Test
     public void testGet() throws Exception {
         UserMeal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
@@ -87,22 +89,26 @@ public class UserMealServiceTest {
         service.get(MEAL1_ID, ADMIN_ID);
         exception.expect(NotFoundException.class);
     }
+
     @Test
     public void testUpdate() throws Exception {
         UserMeal updated = getUpdated();
         service.update(updated, USER_ID);
         MATCHER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));
     }
+
     @Test(expected = NotFoundException.class)
     public void testNotFoundUpdate() throws Exception {
         UserMeal item = service.get(MEAL1_ID, USER_ID);
         service.update(item, ADMIN_ID);
         exception.expect(NotFoundException.class);
     }
+
     @Test
     public void testGetAll() throws Exception {
         MATCHER.assertCollectionEquals(USER_MEALS, service.getAll(USER_ID));
     }
+
     @Test
     public void testGetBetween() throws Exception {
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),

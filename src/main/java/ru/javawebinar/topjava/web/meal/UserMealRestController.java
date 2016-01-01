@@ -56,7 +56,7 @@ public class UserMealRestController {
 
     public List<UserMealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         int userId = LoggedUser.id();
-        LOG.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
+        LOG.info("findBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
         return UserMealsUtil.getFilteredWithExceeded(
                 service.getBetweenDates(startDate, endDate, userId), startTime, endTime, LoggedUser.getCaloriesPerDay()
         );

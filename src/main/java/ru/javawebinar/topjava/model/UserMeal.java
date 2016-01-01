@@ -28,7 +28,7 @@ public class UserMeal extends BaseEntity {
     public static final String GET = "UserMeal.get";
     public static final String ALL_SORTED = "UserMeal.getAll";
     public static final String DELETE = "UserMeal.delete";
-    public static final String GET_BETWEEN = "UserMeal.getBetween";
+    public static final String GET_BETWEEN = "UserMeal.findBetween";
 
     @Column(name = "date_time", nullable = false)
     @NotNull

@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.service.jpa;
+package ru.javawebinar.topjava.service;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,10 +11,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.Profiles;
-import ru.javawebinar.topjava.UserTestData.*;
+import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Arrays;
@@ -29,9 +28,8 @@ import static ru.javawebinar.topjava.UserTestData.*;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles({Profiles.HSQLDB, Profiles.JPA})
-public class UserServiceTest {
-
+@ActiveProfiles({Profiles.HSQLDB, Profiles.DATAJPA})
+public class DataJpaUserServiceTest {
     @Autowired
     protected UserService service;
 
@@ -39,10 +37,10 @@ public class UserServiceTest {
     public void setUp() throws Exception {
         service.evictCache();
     }
-        
+
     @Test
     public void testSave() throws Exception {
-        TestUser tu = new TestUser(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));
+        UserTestData.TestUser tu = new UserTestData.TestUser(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));
         User created = service.save(tu.asUser());
         tu.setId(created.getId());
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, tu, USER), service.getAll());
@@ -50,7 +48,7 @@ public class UserServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
-        service.save(new TestUser("Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER).asUser());
+        service.save(new UserTestData.TestUser("Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER).asUser());
     }
 
     @Test
@@ -96,4 +94,5 @@ public class UserServiceTest {
         service.update(updated.asUser());
         MATCHER.assertEquals(updated, service.get(USER_ID));
     }
+
 }

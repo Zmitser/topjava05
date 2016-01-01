@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.service.jpa;
+package ru.javawebinar.topjava.service;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.UserMeal;
-import ru.javawebinar.topjava.service.UserMealService;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -25,8 +24,10 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.*;
+import static ru.javawebinar.topjava.MealTestData.MEAL1;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
+
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -34,15 +35,14 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles({Profiles.HSQLDB, Profiles.JPA})
-public class UserMealServiceTest {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealServiceTest.class);
+@ActiveProfiles({Profiles.HSQLDB, Profiles.DATAJPA})
+public class DataJpaUserMealServiceTest {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(DataJpaUserMealServiceTest.class);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
-    // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
     public Stopwatch stopwatch = new Stopwatch() {
         private void logInfo(Description description, long nanos) {
             LOG.info(String.format("+++ Test %s spent %d microseconds",

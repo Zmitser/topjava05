@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.UserMeal;
-import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.service.UserMealService;
+import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UserMealRestController {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealRestController.class);
 
-    @Autowired
+    @Autowired(required = true)
     private UserMealService service;
 
     public UserMeal get(int id) {

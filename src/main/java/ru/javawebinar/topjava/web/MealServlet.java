@@ -18,14 +18,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
-/**
- * User: gkislin
- * Date: 19.08.2014
- */
+
 public class MealServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(MealServlet.class);
 
+
     private ConfigurableApplicationContext springContext;
+
     private UserMealRestController mealController;
 
     @Override
@@ -33,6 +32,7 @@ public class MealServlet extends HttpServlet {
         super.init(config);
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
         mealController = springContext.getBean(UserMealRestController.class);
+
     }
 
     @Override

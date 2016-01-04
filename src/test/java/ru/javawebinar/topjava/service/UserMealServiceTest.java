@@ -17,7 +17,7 @@ import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 
-public abstract class BasicUserMealServiceTest extends ParentServiceTest{
+public abstract class UserMealServiceTest extends BaseServiceTest {
 
 
     @Rule

@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 
 @ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.JPA})
-public class JpaUserMealServiceTest extends BasicUserMealServiceTest {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(JpaUserMealServiceTest.class);
+public class UserMealServiceTestJpa extends UserMealServiceTest {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealServiceTestJpa.class);
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {

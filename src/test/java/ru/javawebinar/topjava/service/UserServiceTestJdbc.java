@@ -5,7 +5,7 @@ import ru.javawebinar.topjava.Profiles;
 
 
 @ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.JDBC})
-public class JdbcUserServiceTest extends BasicUserServiceTest {
+public class UserServiceTestJdbc extends UserServiceTest {
 
 
 }

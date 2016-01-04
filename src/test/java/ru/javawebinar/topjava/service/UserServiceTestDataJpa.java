@@ -17,7 +17,7 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 
 @ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.DATAJPA})
-public class DataJpaUserServiceTest extends BasicUserServiceTest {
+public class UserServiceTestDataJpa extends UserServiceTest {
 
 
     @Test

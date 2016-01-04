@@ -22,8 +22,8 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 
 @ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.DATAJPA})
-public class DataJpaUserMealServiceTest extends BasicUserMealServiceTest {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(DataJpaUserMealServiceTest.class);
+public class UserMealServiceTestDataJpa extends UserMealServiceTest {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealServiceTestDataJpa.class);
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {
         private void logInfo(Description description, long nanos) {

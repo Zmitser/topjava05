@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * GKislin
@@ -19,6 +22,10 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
 
     @Autowired
     private ProxyUserRepository proxy;
+
+    @Autowired
+    private ProxyUserMealRepository mealProxy;
+
 
     @Override
     public User save(User user) {
@@ -43,5 +50,13 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         return proxy.findAll(SORT_NAME_EMAIL);
+    }
+    @Override
+    public Map<User, List<UserMeal>> getUserWithMeals(int id){
+        Map<User, List<UserMeal>> userWithMeals = new HashMap<>();
+        User user = get(id);
+        List<UserMeal> meals = mealProxy.getAllByUserIdOrderByDateTimeDesc(id);
+        userWithMeals.put(user, meals);
+        return userWithMeals;
     }
 }

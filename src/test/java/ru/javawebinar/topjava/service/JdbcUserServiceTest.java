@@ -4,7 +4,8 @@ import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.Profiles;
 
 
-@ActiveProfiles(profiles = {Profiles.HSQLDB, Profiles.JDBC})
+@ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.JDBC})
 public class JdbcUserServiceTest extends BasicUserServiceTest {
+
 
 }

@@ -10,11 +10,9 @@ import ru.javawebinar.topjava.Profiles;
 import java.util.concurrent.TimeUnit;
 
 
-
-@ActiveProfiles(profiles = {Profiles.HSQLDB, Profiles.JDBC})
+@ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.JDBC})
 public class JdbcUserMealServiceTest extends BasicUserMealServiceTest {
     private static final LoggerWrapper LOG = LoggerWrapper.get(JdbcUserMealServiceTest.class);
-
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {

@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -7,6 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * GKislin
@@ -28,4 +32,9 @@ public interface UserMealService {
     UserMeal update(UserMeal meal, int userId) throws NotFoundException;
 
     UserMeal save(UserMeal meal, int userId);
+
+
+    default Map< List<UserMeal>, User> getAllWithUser(int id) {
+        return new HashMap<>();
+    }
 }

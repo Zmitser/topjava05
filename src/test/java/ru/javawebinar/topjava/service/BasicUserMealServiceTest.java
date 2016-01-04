@@ -1,7 +1,8 @@
 package ru.javawebinar.topjava.service;
 
-
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.UserMeal;
@@ -16,10 +17,16 @@ import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 
-public abstract class BasicUserMealServiceTest extends ParentTestServiceClass{
+public abstract class BasicUserMealServiceTest extends ParentServiceTest{
+
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Autowired
     protected UserMealService service;
+
+
 
     @Test
     public void testDelete() throws Exception {
@@ -77,5 +84,4 @@ public abstract class BasicUserMealServiceTest extends ParentTestServiceClass{
         MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
                 service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30), LocalDate.of(2015, Month.MAY, 30), USER_ID));
     }
-
 }

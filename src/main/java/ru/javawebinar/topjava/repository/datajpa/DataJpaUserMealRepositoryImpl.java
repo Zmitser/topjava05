@@ -7,7 +7,9 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * GKislin
@@ -15,8 +17,6 @@ import java.util.List;
  */
 @Repository
 public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
-
-
 
     @Autowired
     private ProxyUserMealRepository proxyUserMealRepository;
@@ -52,6 +52,15 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return proxyUserMealRepository.findBetween(startDate, endDate, userId);
+    }
+    @Override
+    public Map<List<UserMeal>, User> getAllWithUser(int userId){
+        Map< List<UserMeal>, User> mealWithUser = new HashMap<>();
+        List<UserMeal> all = getAll(userId);
+        User ref = proxy.findOne(userId);
+        mealWithUser.put(all, ref);
+        return mealWithUser;
+
     }
 }
 

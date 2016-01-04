@@ -10,7 +10,7 @@ import ru.javawebinar.topjava.Profiles;
 import java.util.concurrent.TimeUnit;
 
 
-@ActiveProfiles(profiles = {Profiles.HSQLDB, Profiles.JPA})
+@ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.JPA})
 public class JpaUserMealServiceTest extends BasicUserMealServiceTest {
     private static final LoggerWrapper LOG = LoggerWrapper.get(JpaUserMealServiceTest.class);
 

@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ import java.util.Collections;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 
-public abstract class BasicUserServiceTest extends ParentTestServiceClass {
+public abstract class BasicUserServiceTest extends ParentServiceTest {
+
     @Autowired
     protected UserService service;
 

@@ -29,5 +29,8 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
     List<UserMeal> findBetween(@Param("startTime")LocalDateTime startTime, @Param("endTime")LocalDateTime endTime, @Param("userId")Integer userId);
     @Transactional
     List<UserMeal> findAllByUserIdOrderByDateTimeDesc(Integer userId);
+
+    @Transactional
+    List<UserMeal> getAllByUserIdOrderByDateTimeDesc(Integer userId);
 }
 

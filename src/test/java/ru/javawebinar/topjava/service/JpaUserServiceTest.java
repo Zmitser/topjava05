@@ -4,7 +4,7 @@ import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.Profiles;
 
 
-@ActiveProfiles(profiles = {Profiles.HSQLDB, Profiles.JPA})
-public class JpaUserServiceTest extends BasicUserServiceTest {
+@ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.JPA})
+public class JpaUserServiceTest extends BasicUserServiceTest{
 
 }

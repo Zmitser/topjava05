@@ -3,7 +3,9 @@ package ru.javawebinar.topjava.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserRepository;
@@ -19,6 +21,7 @@ import java.util.Objects;
  * 06.03.2015.
  */
 @Service
+@Profile({Profiles.POSTGRES, Profiles.DATAJPA})
 public class UserServiceImpl implements UserService {
 
     @Autowired

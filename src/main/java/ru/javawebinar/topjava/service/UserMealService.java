@@ -12,10 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * GKislin
- * 15.06.2015.
- */
+
 public interface UserMealService {
     UserMeal get(int id, int userId) throws NotFoundException;
 

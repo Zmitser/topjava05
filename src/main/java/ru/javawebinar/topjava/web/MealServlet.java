@@ -25,14 +25,14 @@ public class MealServlet extends HttpServlet {
 
 
     private ConfigurableApplicationContext springContext;
-
     private UserMealRestController mealController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
-        springContext.getEnvironment().setActiveProfiles(Profiles.POSTGRES, Profiles.DATAJPA);
+        springContext.getEnvironment().setActiveProfiles(Profiles.DATAJPA, Profiles.POSTGRES);
+        springContext.refresh();
         mealController = springContext.getBean(UserMealRestController.class);
 
 

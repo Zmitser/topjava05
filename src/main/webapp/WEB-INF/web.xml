@@ -4,7 +4,10 @@
          id="WebApp_ID" version="2.5">
 
     <display-name>Topjava</display-name>
-
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>postgres,datajpa</param-value>
+    </context-param>
     <servlet>
         <servlet-name>userServlet</servlet-name>
         <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>
@@ -14,7 +17,6 @@
         <servlet-name>userServlet</servlet-name>
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>mealServlet</servlet-name>
         <servlet-class>ru.javawebinar.topjava.web.MealServlet</servlet-class>

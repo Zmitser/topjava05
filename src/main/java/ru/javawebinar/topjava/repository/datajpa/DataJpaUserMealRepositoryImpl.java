@@ -7,9 +7,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * GKislin
@@ -21,6 +19,7 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
     @Autowired
     private ProxyUserMealRepository proxyUserMealRepository;
 
+
     @Autowired
     private ProxyUserRepository proxy;
 
@@ -28,7 +27,7 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
     public UserMeal save(UserMeal userMeal, int userId) {
         User ref = proxy.getOne(userId);
         userMeal.setUser(ref);
-        if (!userMeal.isNew() && get(userMeal.getId(), userId) == null){
+        if (!userMeal.isNew() && get(userMeal.getId(), userId) == null) {
             return null;
         }
         return proxyUserMealRepository.save(userMeal);
@@ -53,14 +52,10 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return proxyUserMealRepository.findBetween(startDate, endDate, userId);
     }
-    @Override
-    public Map<List<UserMeal>, User> getAllWithUser(int userId){
-        Map< List<UserMeal>, User> mealWithUser = new HashMap<>();
-        List<UserMeal> all = getAll(userId);
-        User ref = proxy.findOne(userId);
-        mealWithUser.put(all, ref);
-        return mealWithUser;
 
+    @Override
+    public UserMeal getMealWithUser(int id) {
+        return proxyUserMealRepository.getMealWithUser(id);
     }
 }
 

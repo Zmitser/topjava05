@@ -11,14 +11,12 @@ import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.MATCHER;
-import static ru.javawebinar.topjava.MealTestData.USER_MEALS;
-import static ru.javawebinar.topjava.UserTestData.USER;
-import static ru.javawebinar.topjava.UserTestData.USER_ID;
+import static ru.javawebinar.topjava.MealTestData.MEAL1;
+import static ru.javawebinar.topjava.MealTestData.MEAL1_ID;
+import static ru.javawebinar.topjava.UserTestData.*;
 
 
 @ActiveProfiles(profiles = {Profiles.POSTGRES, Profiles.DATAJPA})
@@ -39,11 +37,10 @@ public class UserMealServiceTestDataJpa extends UserMealServiceTest {
 
     @Test
     public void testGetAllWithUser() throws Exception {
-        Map<List<UserMeal>, User> allWithUser = service.getAllWithUser(USER_ID);
-        for (Map.Entry<List<UserMeal>, User> pair : allWithUser.entrySet()) {
-            UserTestData.MATCHER.assertEquals(USER, pair.getValue());
-            MATCHER.assertCollectionEquals(USER_MEALS, pair.getKey());
-        }
+        UserMeal mealWithUser = service.getMealWithUser(MEAL1_ID);
+        User user = mealWithUser.getUser();
+        MATCHER.assertEquals(MEAL1, mealWithUser);
+        UserTestData.MATCHER.assertEquals(USER, user);
 
     }
 

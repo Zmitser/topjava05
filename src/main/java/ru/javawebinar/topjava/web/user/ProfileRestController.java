@@ -1,9 +1,7 @@
 package ru.javawebinar.topjava.web.user;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.LoggedUser;
-import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.User;
 
 /**
@@ -11,7 +9,6 @@ import ru.javawebinar.topjava.model.User;
  * 06.03.2015.
  */
 @Controller
-@Profile({Profiles.POSTGRES, Profiles.DATAJPA})
 public class ProfileRestController extends AbstractUserController {
 
     public User get() {

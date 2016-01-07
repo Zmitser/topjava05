@@ -3,17 +3,13 @@ package ru.javawebinar.topjava.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -21,7 +17,6 @@ import java.util.Objects;
  * 06.03.2015.
  */
 @Service
-@Profile({Profiles.POSTGRES, Profiles.DATAJPA})
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -63,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Map<User, List<UserMeal>> getUserWithMeals(int id) {
+    public User getUserWithMeals(int id) {
         return repository.getUserWithMeals(id);
     }
 }

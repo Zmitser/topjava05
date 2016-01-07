@@ -2,12 +2,9 @@ package ru.javawebinar.topjava.service;
 
 
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * User: gkislin
@@ -29,7 +26,7 @@ public interface UserService {
     
     void evictCache();
 
-    default Map<User, List<UserMeal>> getUserWithMeals(int id) {
-        return new HashMap<>();
+    default User getUserWithMeals(int id) {
+        return new User();
     }
 }

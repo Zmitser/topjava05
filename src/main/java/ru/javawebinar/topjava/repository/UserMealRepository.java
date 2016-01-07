@@ -1,13 +1,9 @@
 package ru.javawebinar.topjava.repository;
 
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * GKislin
@@ -30,7 +26,7 @@ public interface UserMealRepository {
     Collection<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
 
-     default Map< List<UserMeal>, User> getAllWithUser(int id) {
-        return new HashMap<>();
+     default  UserMeal getMealWithUser(int id) {
+        return new UserMeal();
     }
 }

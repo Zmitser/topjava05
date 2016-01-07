@@ -1,25 +1,19 @@
 package ru.javawebinar.topjava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import ru.javawebinar.topjava.Profiles;
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 /**
  * GKislin
  * 06.03.2015.
  */
 @Service
-@Profile({Profiles.POSTGRES, Profiles.DATAJPA})
 public class UserMealServiceImpl implements UserMealService {
 
     @Autowired
@@ -56,7 +50,7 @@ public class UserMealServiceImpl implements UserMealService {
     }
 
     @Override
-    public Map<List<UserMeal>, User> getAllWithUser(int id) {
-        return repository.getAllWithUser(id);
+    public UserMeal getMealWithUser(int id) {
+        return repository.getMealWithUser(id);
     }
 }

@@ -1,13 +1,11 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.javawebinar.topjava.UserTestData.*;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Arrays;
@@ -20,15 +18,6 @@ abstract public class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
-
-    @Autowired
-    protected JpaUtil jpaUtil;
-
-    @Before
-    public void setUp() throws Exception {
-        service.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
 
     @Test
     public void testSave() throws Exception {
@@ -86,4 +75,5 @@ abstract public class AbstractUserServiceTest extends AbstractServiceTest {
         service.update(updated.asUser());
         MATCHER.assertEquals(updated, service.get(USER_ID));
     }
+
 }

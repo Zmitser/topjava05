@@ -75,12 +75,17 @@ public class User extends NamedEntity {
         this(id, name, email, password, UserMealsUtil.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
     }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.caloriesPerDay = caloriesPerDay;
         this.enabled = enabled;
+
         this.roles = roles;
     }
 

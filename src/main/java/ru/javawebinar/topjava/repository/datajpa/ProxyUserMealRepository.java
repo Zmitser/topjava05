@@ -19,7 +19,7 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
     int delete(@Param("id") int id, @Param("userId") int userId);
 
     @Override
-    UserMeal save(UserMeal item);
+    UserMeal saveAndFlush(UserMeal item);
 
     @Query("SELECT m FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId")
     UserMeal get(@Param("id") int id, @Param("userId") int userId);

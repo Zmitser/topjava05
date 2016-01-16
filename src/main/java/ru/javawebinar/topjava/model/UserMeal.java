@@ -31,7 +31,6 @@ public class UserMeal extends BaseEntity {
     public static final String GET_BETWEEN = "UserMeal.getBetween";
 
     @Column(name = "date_time", nullable = false)
-    @NotNull
     protected LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)

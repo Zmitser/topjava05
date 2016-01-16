@@ -2,7 +2,6 @@ package ru.javawebinar.topjava.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.util.UserRowMapperExtractor;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 @Repository
 public class JdbcUserRepositoryImpl implements UserRepository {
 
-    private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
+    private static final   UserRowMapperExtractor EXTRACTOR = new UserRowMapperExtractor();
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -48,7 +48,8 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 .addValue("password", user.getPassword())
                 .addValue("registered", user.getRegistered())
                 .addValue("enabled", user.isEnabled())
-                .addValue("caloriesPerDay", user.getCaloriesPerDay());
+                .addValue("caloriesPerDay", user.getCaloriesPerDay())
+                .addValue("roles", user.getRoles());
 
         if (user.isNew()) {
             Number newKey = insertUser.executeAndReturnKey(map);
@@ -68,17 +69,18 @@ public class JdbcUserRepositoryImpl implements UserRepository {
 
     @Override
     public User get(int id) {
-        List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
+        List<User> users = jdbcTemplate.query("SELECT * FROM users USERS LEFT JOIN user_roles ON users.id = user_roles.user_id  WHERE id=?", EXTRACTOR, id);
         return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public User getByEmail(String email) {
-        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
+        List<User> users =    jdbcTemplate.query("SELECT * FROM users LEFT OUTER JOIN user_roles ON users.id = user_roles.user_id WHERE email=?", EXTRACTOR, email);
+        return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public List<User> getAll() {
-        return jdbcTemplate.query("SELECT * FROM users ORDER BY name, email", ROW_MAPPER);
+        return jdbcTemplate.query("select *  from users left outer join user_roles on users.id = user_roles.user_id order by name, email", EXTRACTOR);
     }
 }

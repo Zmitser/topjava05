@@ -28,7 +28,7 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
             return null;
         }
         userMeal.setUser(userProxy.getOne(userId));
-        return proxy.save(userMeal);
+        return proxy.saveAndFlush(userMeal);
     }
 
     @Override

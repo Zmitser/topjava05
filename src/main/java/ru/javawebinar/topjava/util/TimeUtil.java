@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * 07.01.2015.
  */
 public class TimeUtil {
-    public static final DateTimeFormatter DATE_TME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter DATE_TME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final LocalDate MIN_DATE = LocalDate.of(0, 1, 1);
     public static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
 

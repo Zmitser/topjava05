@@ -27,7 +27,6 @@ public class JspUserMealController extends AbstractUserMealController {
         return "mealList";
     }
 
-
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(HttpServletRequest request) {
         super.delete(getId(request));

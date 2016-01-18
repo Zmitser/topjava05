@@ -20,5 +20,5 @@
     <root level="WARN">
         <appender-ref ref="console"/>
     </root>
-
+    <logger name="org.springframework.web" level="debug"/>
 </configuration>

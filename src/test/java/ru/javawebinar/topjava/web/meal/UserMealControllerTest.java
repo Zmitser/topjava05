@@ -10,9 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.javawebinar.topjava.MealTestData.MEAL1;
 import static ru.javawebinar.topjava.MealTestData.MEAL1_ID;
 
-/**
- * Created by Dimka on 17.01.2016.
- */
+
 public class UserMealControllerTest extends AbstractControllerTest {
 
     @Test

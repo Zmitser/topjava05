@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web.meal;
 
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.TestUtil;
@@ -46,7 +47,7 @@ public class UserMealRestControllerTest extends AbstractMealControllerTest {
         TestUtil.print(mockMvc.perform(get(REST_URL).contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON)))
-                .andExpect(MATCHER.contentListMatcher(USER_MEALS));
+                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(USER_MEALS_WITH_EXCEED));
     }
 
     @Test
@@ -75,9 +76,9 @@ public class UserMealRestControllerTest extends AbstractMealControllerTest {
 
     @Test
     public void testGetBetween() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL).contentType(APPLICATION_JSON))
+        mockMvc.perform(get(REST_URL + "between?startDate=2015-05-30T10:00:00&endDate=2015-05-30T22:00:00"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(USER_MEALS)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(USER_MEALS_WITH_EXCEED_BETWEEN));
     }
 }

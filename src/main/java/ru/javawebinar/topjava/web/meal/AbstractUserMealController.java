@@ -10,7 +10,9 @@ import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -61,6 +63,14 @@ public class AbstractUserMealController {
         LOG.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
         return UserMealsUtil.getFilteredWithExceeded(
                 service.getBetweenDates(startDate, endDate, userId), startTime, endTime, LoggedUser.getCaloriesPerDay()
+        );
+    }
+
+    public Collection<UserMealWithExceed> getBetweenDateTime(LocalDateTime startDate, LocalDateTime endDate) {
+        int userId = LoggedUser.id();
+        LOG.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, userId);
+        return UserMealsUtil.getFilteredWithExceeded(
+                service.getBetweenDateTimes(startDate, endDate, userId), startDate.toLocalTime(), endDate.toLocalTime(), LoggedUser.getCaloriesPerDay()
         );
     }
 }

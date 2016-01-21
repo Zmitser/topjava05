@@ -26,7 +26,7 @@
     <bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">
         <property name="converters">
             <set>
-                <bean class="ru.javawebinar.topjava.web.converter.StringToLocalDateTimeConverter"/>
+                <bean class="ru.javawebinar.topjava.web.converter.FromStringToLocalDateTime"/>
             </set>
         </property>
     </bean>

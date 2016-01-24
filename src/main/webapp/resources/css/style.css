@@ -1,5 +1,4 @@
 dl {
-    background: none repeat scroll 0 0 #FAFAFA;
     margin: 8px 0;
     padding: 0;
 }
@@ -29,4 +28,7 @@ header, footer {
     font-size: 20px;
     padding: 5px 20px;
     margin: 6px 0;
+}
+input[type="date"], input[type="time"]{
+    width: 250px;
 }

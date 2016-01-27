@@ -38,5 +38,9 @@ public class AdminAjaxController extends AbstractUserController {
         }
     }
 
+    @RequestMapping(value = "/{id}/enable", method = RequestMethod.POST)
+    public void checkboxEnable(@PathVariable("id") int id, @RequestParam("enable") boolean enable){
+        super.checkboxEnable(id, enable);
+    }
 
 }

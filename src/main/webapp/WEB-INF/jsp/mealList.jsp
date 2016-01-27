@@ -14,7 +14,7 @@
         <h3><a href="${pageContext.request.contextPath}">Home</a></h3>
         <h3><fmt:message key="meals.title"/></h3>
         <div class="row">
-            <form method="post" class="form-horizontal" action="meals/filter">
+            <form method="post" class="form-horizontal">
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="startDate">From Date:</label>
@@ -41,7 +41,7 @@
             </form>
         </div>
         <div class="row">
-            <a class="btn btn-info" href="meals/create">Add Meal</a>
+            <a class="btn btn-info" id="add">Add Meal</a>
         </div>
         <br>
         <div class="row">
@@ -58,15 +58,15 @@
                 <c:forEach items="${mealList}" var="meal">
                     <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.UserMealWithExceed"/>
                     <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
-                        <td>
+                        <td class="dateTime">
                                 <%--<fmt:parseDate value="${meal.dateTime}" pattern="y-M-dd'T'H:m" var="parsedDate"/>--%>
                                 <%--<fmt:formatDate value="${parsedDate}" pattern="yyyy.MM.dd HH:mm" />--%>
                             <%=TimeUtil.toString(meal.getDateTime())%>
                         </td>
-                        <td>${meal.description}</td>
-                        <td>${meal.calories}</td>
-                        <td><a class="btn btn-primary btn-sm edit" id="${meal.id}">Update</a></td>
-                        <td><a class="btn btn-danger btn-delete " id="${meal.id}">Delete</a></td>
+                        <td class="description">${meal.description}</td>
+                        <td class="calories">${meal.calories}</td>
+                        <td><a class="btn btn-sm btn-primary edit" name="${meal.id}">Edit</a></td>
+                        <td><a class="btn btn-sm btn-danger delete" name="${meal.id}">Delete</a></td>
                     </tr>
                 </c:forEach>
             </table>
@@ -84,33 +84,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><fmt:message key="users.edit"/></h2>
+                <h2 class="modal-title"><fmt:message key="meals.edit"/></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3">Name</label>
+                        <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="control-label col-xs-3">Email</label>
+                        <label for="description" class="control-label col-xs-3">Description</label>
 
                         <div class="col-xs-9">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="email">
+                            <input type="text" class="form-control" id="description" name="description" placeholder="description">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="control-label col-xs-3">Password</label>
+                        <label for="calories" class="control-label col-xs-3">Calories</label>
 
                         <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="">
+                            <input type="number" class="form-control" id="calories" name="calories" placeholder="">
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript">
 
-    var ajaxUrl = 'ajax/admin/users/';
+    var ajaxUrl = '/ajax/profile/meals/';
     var oTable_datatable;
     var oTable_datatable_params;
 
@@ -144,20 +144,15 @@
             "bInfo": false,
             "aoColumns": [
                 {
-                    "mData": "name"
+                    "mData": "dateTime"
                 },
                 {
-                    "mData": "email"
+                    "mData": "description"
                 },
                 {
-                    "mData": "roles"
+                    "mData": "calories"
                 },
-                {
-                    "mData": "enabled"
-                },
-                {
-                    "mData": "registered"
-                },
+
                 {
                     "sDefaultContent": "",
                     "bSortable": false

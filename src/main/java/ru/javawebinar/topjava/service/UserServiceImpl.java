@@ -9,9 +9,8 @@ import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.util.Collection;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * GKislin
@@ -60,5 +59,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getWithMeals(int id) {
         return repository.getWithMeals(id);
+    }
+
+    public void checkboxEnable(int id, boolean enable) {
+        repository.checkboxEnable(id, enable);
     }
 }

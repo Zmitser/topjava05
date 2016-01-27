@@ -25,4 +25,7 @@ public interface UserRepository {
     default User getWithMeals(int id){
         throw new UnsupportedOperationException();
     }
+    default void checkboxEnable(int id, boolean enable){
+        throw new UnsupportedOperationException();
+    }
 }

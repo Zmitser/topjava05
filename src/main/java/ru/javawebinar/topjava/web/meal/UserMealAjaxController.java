@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.UserMeal;
@@ -20,9 +21,16 @@ public class UserMealAjaxController extends AbstractUserMealController {
         return super.getAll();
     }
 
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") int id) {
+        super.delete(id);
+    }
+
+
     @RequestMapping(method = RequestMethod.POST)
     public void createOrUpdate(@RequestParam("id") int id,
-                               @RequestParam("dateTime") LocalDateTime dateTime,
+                               @RequestParam("dateTime")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
                                @RequestParam("description") String description,
                                @RequestParam("calories") int calories) {
         UserMeal userMeal = new UserMeal(id, dateTime, description, calories);
@@ -33,11 +41,6 @@ public class UserMealAjaxController extends AbstractUserMealController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") int id) {
-        super.delete(id);
-    }
-
     @RequestMapping(value = "/filter", method = RequestMethod.POST)
     public List<UserMealWithExceed> getBetween(
             @RequestParam(value = "startDate", required = false) LocalDate startDate, @RequestParam(value = "startTime", required = false) LocalTime startTime,
@@ -45,5 +48,15 @@ public class UserMealAjaxController extends AbstractUserMealController {
         return super.getBetween(
                 startDate != null ? startDate : TimeUtil.MIN_DATE, startTime != null ? startTime : LocalTime.MIN,
                 endDate != null ? endDate : TimeUtil.MAX_DATE, endTime != null ? endTime : LocalTime.MAX);
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserMeal get(@PathVariable("id") int id) {
+        return super.get(id);
+    }
+    @RequestMapping(value = "/{id}/checked", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserMeal checked(@PathVariable("id") int id) {
+        return super.get(id);
     }
 }

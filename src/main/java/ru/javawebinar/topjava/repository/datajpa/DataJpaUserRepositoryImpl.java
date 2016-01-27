@@ -49,4 +49,9 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     public User getWithMeals(int id) {
         return proxy.getWithMeals(id);
     }
+
+    @Override
+    public void checkboxEnable(int id, boolean enable) {
+        proxy.checkboxEnable(id, enable);
+    }
 }

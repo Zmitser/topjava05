@@ -26,20 +26,18 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">-->
-        <!--<property name="formatters">-->
-            <!--<set>-->
-                <!--<bean class="ru.javawebinar.topjava.util.converter.LocalTimeFormatter"/>-->
-                <!--<bean class="ru.javawebinar.topjava.util.converter.LocalDateFormatter"/>-->
-            <!--</set>-->
-        <!--</property>-->
-    <!--</bean>-->
-    <bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">
-        <property name="converters">
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="formatters">
             <set>
-                <bean class="ru.javawebinar.topjava.util.converter.StringToLocalDateTimeConverter"/>
+                <bean class="ru.javawebinar.topjava.util.converter.LocalTimeFormatter"/>
+                <bean class="ru.javawebinar.topjava.util.converter.LocalDateFormatter"/>
             </set>
         </property>
+        <!--<property name="converters">-->
+            <!--<set>-->
+                <!--<bean class="ru.javawebinar.topjava.util.converter.StringToLocalDateTimeConverter"/>-->
+            <!--</set>-->
+        <!--</property>-->
     </bean>
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>

@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.UserMeal;
@@ -7,6 +8,7 @@ import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.util.TimeUtil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -28,26 +30,18 @@ public class UserMealAjaxController extends AbstractUserMealController {
         super.delete(id);
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void updateOrCreate(@RequestParam("id") int id,
-//                               @RequestParam("datetime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
-//                               @RequestParam("description") String description,
-//                               @RequestParam("calories") int calories) {
-//        UserMeal meal = new UserMeal(id, dateTime, description, calories);
-//        if (id == 0) {
-//            super.create(meal);
-//        } else {
-//            super.update(meal, id);
-//        }
-//    }
-
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(UserMeal userMeal) {
-        if (userMeal.getId() == 0) {
-            super.create(userMeal);
+    public void updateOrCreate(@RequestParam("id") int id,
+                               @RequestParam("datetime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
+                               @RequestParam("description") String description,
+                               @RequestParam("calories") int calories) {
+        UserMeal meal = new UserMeal(id, dateTime, description, calories);
+        if (id == 0) {
+            super.create(meal);
+        } else {
+            super.update(meal, id);
         }
     }
-
 
 
 

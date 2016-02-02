@@ -22,26 +22,26 @@
                         <label class="control-label col-sm-2" for="startDate">From Date:</label>
 
                         <div class="col-sm-2">
-                            <input type="date" class="date-picker" name="startDate" id="startDate">
+                            <input type="date" class="datepicker" name="startDate" id="startDate">
                         </div>
 
                         <label class="control-label col-sm-2" for="endDate">To Date:</label>
 
                         <div class="col-sm-2">
-                            <input type="date" class="date-picker" name="endDate" id="endDate">
+                            <input type="date" class="datepicker" name="endDate" id="endDate">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="startTime">From Time:</label>
 
                         <div class="col-sm-2">
-                            <input type="time" class="ti" name="startTime" id="startTime">
+                            <input type="time" class="timepicker" name="startTime" id="startTime">
                         </div>
 
                         <label class="control-label col-sm-2" for="endTime">To Time:</label>
 
                         <div class="col-sm-2">
-                            <input type="time" name="endTime" id="endTime">
+                            <input type="time" class="timepicker" name="endTime" id="endTime">
                         </div>
                     </div>
                     <div class="form-group">
@@ -54,7 +54,7 @@
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
-                        <th>Date</th>
+                        <th>dateTime</th>
                         <th>Description</th>
                         <th>Calories</th>
                         <th></th>
@@ -94,11 +94,11 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="datetime" class="control-label col-xs-3">Date</label>
+                        <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="datetime"
-                                   name="datetime" placeholder="Date">
+                            <input type="datetime-local" class="datetimepicker form-control" id="dateTime"
+                                   name="dateTime" placeholder="Date">
                         </div>
                     </div>
                     <div class="form-group">

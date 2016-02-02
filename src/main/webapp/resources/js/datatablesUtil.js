@@ -15,8 +15,7 @@ function makeEditable() {
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
     });
-
-    dateTimePickerInit();
+    init();
 }
 
 function updateRow(id) {

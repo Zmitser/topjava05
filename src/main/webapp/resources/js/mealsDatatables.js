@@ -14,7 +14,26 @@ function updateTable() {
     return false;
 }
 
+function init() {
+    $('#filter').submit(function () {
+        updateTable();
+        return false;
+    });
 
+    $('.datepicker').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+    });
+    $('.timepicker').datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+    });
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i',
+    });
+
+    coloredTable();
+}
 
 $(function () {
     datatableApi = $('#datatable').DataTable({
@@ -26,10 +45,11 @@ $(function () {
             {
                 "mData": "dateTime",
                 "mRender": function (date, type, row) {
-                    if(type == 'display'){
+                    if (type == 'display') {
                         var dateObject = new Date(date);
-                        return "<span>" + dateObject.toISOString().substring(0, 10) + "<span/>"
+                        return '<span>' + dateObject.toISOString().substring(0, 10) + '</span>';
                     }
+                    return date;
                 }
             },
 
@@ -42,12 +62,12 @@ $(function () {
             {
                 "sDefaultContent": "",
                 "bSortable": false,
-                "mRender" : renderEditBtn
+                "mRender": renderEditBtn
             },
             {
                 "sDefaultContent": "",
                 "bSortable": false,
-                "mRender" : renderDeleteBtn
+                "mRender": renderDeleteBtn
             }
         ],
         "aaSorting": [

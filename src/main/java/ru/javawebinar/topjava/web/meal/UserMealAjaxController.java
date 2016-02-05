@@ -35,6 +35,7 @@ public class UserMealAjaxController extends AbstractUserMealController {
     public UserMeal get(@PathVariable("id") int id) {
         return super.get(id);
     }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> update(@Valid UserMeal meal, BindingResult result) {
         if (result.hasErrors()) {

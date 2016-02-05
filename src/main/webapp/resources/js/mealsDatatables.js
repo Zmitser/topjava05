@@ -9,6 +9,7 @@ function updateTable() {
         data: $('#filter').serialize(),
         success: function (data) {
             updateTableByData(data);
+            coloredTable();
         }
     });
     return false;
@@ -22,19 +23,27 @@ function init() {
 
     $('.datepicker').datetimepicker({
         timepicker: false,
-        format: 'Y-m-d',
+        format: 'Y-m-d'
     });
     $('.timepicker').datetimepicker({
         datepicker: false,
-        format: 'H:i',
+        format: 'H:i'
     });
     $('.datetimepicker').datetimepicker({
-        format: 'Y-m-d H:i',
+        format: 'Y-m-d H:i'
     });
 
     coloredTable();
 }
-
+function coloredTable() {
+    $.each($('td:nth-child(4)'), function (key, item) {
+        var span = $(item);
+        span.css('display', 'none');
+        var cell = datatableApi.cell(span);
+        var data = cell.data();
+        span.parent().css("color", data == true ? 'red' : 'green');
+    });
+}
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "sAjaxSource": ajaxUrl,
@@ -59,6 +68,11 @@ $(function () {
             {
                 "mData": "calories"
             },
+
+            {
+                "mData": "exceed"
+
+            },
             {
                 "sDefaultContent": "",
                 "bSortable": false,
@@ -70,6 +84,7 @@ $(function () {
                 "mRender": renderDeleteBtn
             }
         ],
+
         "aaSorting": [
             [
                 0,

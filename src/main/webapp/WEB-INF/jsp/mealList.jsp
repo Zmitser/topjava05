@@ -57,6 +57,7 @@
                         <th>dateTime</th>
                         <th>Description</th>
                         <th>Calories</th>
+                        <th hidden>exceed</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -71,6 +72,7 @@
                             </td>
                             <td>${meal.description}</td>
                             <td>${meal.calories}</td>
+                            <td>${meal.exceed}</td>
                             <td><a class="btn btn-xs btn-primary edit">Edit</a></td>
                             <td><a class="btn btn-xs btn-danger delete">Delete</a></td>
                         </tr>
@@ -97,7 +99,7 @@
                         <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="datetimepicker form-control" id="dateTime"
+                            <input type="text" class="datetimepicker form-control" id="dateTime"
                                    name="dateTime" placeholder="Date">
                         </div>
                     </div>

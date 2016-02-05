@@ -31,11 +31,7 @@
             <set>
                 <bean class="ru.javawebinar.topjava.util.converter.LocalTimeFormatter"/>
                 <bean class="ru.javawebinar.topjava.util.converter.LocalDateFormatter"/>
-            </set>
-        </property>
-        <property name="converters">
-            <set>
-                <bean class="ru.javawebinar.topjava.util.converter.StringToLocalDateTimeConverter"/>
+                <bean class="ru.javawebinar.topjava.util.converter.LocalDateTimeFormatterTwo"/>
             </set>
         </property>
     </bean>

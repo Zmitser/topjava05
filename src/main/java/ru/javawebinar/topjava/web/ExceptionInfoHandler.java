@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.util.exception.ErrorInfo;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.util.exception.ValidationException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,11 +29,20 @@ public interface ExceptionInfoHandler {
         return LOG.getErrorInfo(req.getRequestURL(), e);
     }
 
-    @ResponseStatus(value = HttpStatus.CONFLICT)  // 409
+    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "fsfdsfds")  // 409
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseBody
     @Order(Ordered.HIGHEST_PRECEDENCE + 1)
     default ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
+        return LOG.getErrorInfo(req.getRequestURL(), e);
+    }
+
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(ValidationException.class)
+    @ResponseBody
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    default ErrorInfo validationError(HttpServletRequest req, Exception e) {
         return LOG.getErrorInfo(req.getRequestURL(), e);
     }
 
@@ -43,4 +53,7 @@ public interface ExceptionInfoHandler {
     default ErrorInfo handleError(HttpServletRequest req, Exception e) {
         return LOG.getErrorInfo(req.getRequestURL(), e);
     }
+
+
+
 }

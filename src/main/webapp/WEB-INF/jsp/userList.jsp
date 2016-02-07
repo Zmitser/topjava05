@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -14,10 +15,10 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3><fmt:message key="users.title"/></h3>
+            <h3><spring:message code="users.title"/></h3>
 
             <div class="view-box">
-                <a class="btn btn-sm btn-info" id="add"><fmt:message key="users.add"/></a>
+                <a class="btn btn-sm btn-info" id="add"><spring:message code="users.add"/></a>
 
                 <table class="table table-striped display" id="datatable">
                     <thead>
@@ -43,7 +44,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><fmt:message key="users.edit"/></h2>
+                <h2 class="modal-title"><spring:message code="users.edit"/></h2>
             </div>
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
